@@ -1,23 +1,20 @@
 <?php
-
 namespace App\Livewire;
 
 use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class ShoppingListView extends Component
-{
+class ShoppingListView extends Component {
   public ?ShoppingList $list = null;
   public array $activeTagIds = [];
-  public bool $showChecked = true;
+  public bool $showChecked   = true;
 
-  public function mount(): void
-  {
-    $user = Auth::user();
+  public function mount(): void {
+    $user       = Auth::user();
     $this->list = $user->primaryList;
 
-    if (!$this->list) {
+    if (! $this->list) {
       $first = $user->ownedLists()->first() ?? $user->sharedLists()->first();
       if ($first) {
         $user->update(['primary_list_id' => $first->id]);
@@ -26,18 +23,17 @@ class ShoppingListView extends Component
     }
   }
 
-  public function getListeners(): array
-  {
+  public function getListeners(): array {
     $listeners = [
       'tag-filter-changed' => 'onTagFilterChanged',
-      'item-changed' => 'refreshList',
-      'item-created' => 'refreshList',
-      'item-deleted' => 'refreshList',
-      'list-updated' => 'refreshList',
+      'item-changed'       => 'refreshList',
+      'item-created'       => 'refreshList',
+      'item-deleted'       => 'refreshList',
+      'list-updated'       => 'refreshList',
     ];
 
     if ($this->list) {
-      $channel = "echo:shopping-list.{$this->list->id}";
+      $channel                             = "echo:shopping-list.{$this->list->id}";
       $listeners["{$channel},ItemCreated"] = 'refreshList';
       $listeners["{$channel},ItemUpdated"] = 'refreshList';
       $listeners["{$channel},ItemDeleted"] = 'refreshList';
@@ -47,8 +43,7 @@ class ShoppingListView extends Component
     return $listeners;
   }
 
-  public function toggleTag(int $tagId): void
-  {
+  public function toggleTag(int $tagId): void {
     if (in_array($tagId, $this->activeTagIds)) {
       $this->activeTagIds = array_values(array_diff($this->activeTagIds, [$tagId]));
     } else {
@@ -56,25 +51,21 @@ class ShoppingListView extends Component
     }
   }
 
-  public function toggleShowChecked(): void
-  {
-    $this->showChecked = !$this->showChecked;
+  public function toggleShowChecked(): void {
+    $this->showChecked = ! $this->showChecked;
   }
 
-  public function onTagFilterChanged(array $activeTagIds): void
-  {
+  public function onTagFilterChanged(array $activeTagIds): void {
     $this->activeTagIds = $activeTagIds;
   }
 
-  public function refreshList(): void
-  {
+  public function refreshList(): void {
     if ($this->list) {
       $this->list = $this->list->fresh();
     }
   }
 
-  public function render()
-  {
+  public function render() {
     $categories = collect();
 
     if ($this->list) {
@@ -82,7 +73,7 @@ class ShoppingListView extends Component
         $query->with('tags')->orderBy('is_checked')->orderByRaw('LOWER(text)');
       }])->get();
 
-      if (!empty($this->activeTagIds)) {
+      if (! empty($this->activeTagIds)) {
         $categories->each(function ($category) {
           $category->setRelation('items', $category->items->filter(function ($item) {
             return $item->tags->whereIn('id', $this->activeTagIds)->isNotEmpty();
@@ -90,7 +81,7 @@ class ShoppingListView extends Component
         });
       }
 
-      if (!$this->showChecked) {
+      if (! $this->showChecked) {
         $categories->each(function ($category) {
           $category->setRelation('items', $category->items->where('is_checked', false));
         });

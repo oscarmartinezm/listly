@@ -1,17 +1,14 @@
 <?php
-
 namespace App\Livewire;
 
 use App\Models\ShoppingList;
 use Livewire\Component;
 
-class TagFilter extends Component
-{
+class TagFilter extends Component {
   public ShoppingList $list;
   public array $activeTagIds = [];
 
-  public function toggle(int $tagId): void
-  {
+  public function toggle(int $tagId): void {
     if (in_array($tagId, $this->activeTagIds)) {
       $this->activeTagIds = array_values(array_diff($this->activeTagIds, [$tagId]));
     } else {
@@ -20,8 +17,7 @@ class TagFilter extends Component
     $this->dispatch('tag-filter-changed', activeTagIds: $this->activeTagIds);
   }
 
-  public function render()
-  {
+  public function render() {
     return view('livewire.tag-filter', [
       'tags' => $this->list->tags,
     ]);

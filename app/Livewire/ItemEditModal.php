@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire;
 
 use App\Events\ItemUpdated;
@@ -8,39 +7,38 @@ use App\Models\ShoppingList;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class ItemEditModal extends Component
-{
-  public bool $show = false;
-  public ?int $itemId = null;
-  public string $text = '';
-  public ?int $categoryId = null;
-  public string $link = '';
+class ItemEditModal extends Component {
+  public bool $show            = false;
+  public ?int $itemId          = null;
+  public string $text          = '';
+  public ?int $categoryId      = null;
+  public string $link          = '';
   public array $selectedTagIds = [];
-  public ?ShoppingList $list = null;
+  public ?ShoppingList $list   = null;
 
   #[On('open-edit-modal')]
-  public function openModal(int $itemId): void
-  {
-    $item = Item::with('tags')->findOrFail($itemId);
-    $this->itemId = $item->id;
-    $this->text = $item->text;
-    $this->categoryId = $item->category_id;
-    $this->link = $item->link ?? '';
+  public function openModal(int $itemId): void {
+    $item                 = Item::with('tags')->findOrFail($itemId);
+    $this->itemId         = $item->id;
+    $this->text           = $item->text;
+    $this->categoryId     = $item->category_id;
+    $this->link           = $item->link ?? '';
     $this->selectedTagIds = $item->tags->pluck('id')->toArray();
-    $this->list = $item->shoppingList;
-    $this->show = true;
+    $this->list           = $item->shoppingList;
+    $this->show           = true;
   }
 
-  public function save(): void
-  {
+  public function save(): void {
     $this->text = trim($this->text);
-    if ($this->text === '' || !$this->itemId) return;
+    if ($this->text === '' || ! $this->itemId) {
+      return;
+    }
 
     $item = Item::findOrFail($this->itemId);
     $item->update([
-      'text' => $this->text,
+      'text'        => $this->text,
       'category_id' => $this->categoryId ?: null,
-      'link' => $this->link !== '' ? $this->link : null,
+      'link'        => $this->link !== '' ? $this->link : null,
     ]);
     $item->tags()->sync($this->selectedTagIds);
     ItemUpdated::dispatch($item);
@@ -49,13 +47,11 @@ class ItemEditModal extends Component
     $this->dispatch('item-changed');
   }
 
-  public function closeModal(): void
-  {
+  public function closeModal(): void {
     $this->show = false;
   }
 
-  public function toggleTagSelection(int $tagId): void
-  {
+  public function toggleTagSelection(int $tagId): void {
     if (in_array($tagId, $this->selectedTagIds)) {
       $this->selectedTagIds = array_values(array_diff($this->selectedTagIds, [$tagId]));
     } else {
@@ -63,10 +59,9 @@ class ItemEditModal extends Component
     }
   }
 
-  public function render()
-  {
+  public function render() {
     $categories = $this->list ? $this->list->categories : collect();
-    $tags = $this->list ? $this->list->tags : collect();
+    $tags       = $this->list ? $this->list->tags : collect();
     return view('livewire.item-edit-modal', compact('categories', 'tags'));
   }
 }

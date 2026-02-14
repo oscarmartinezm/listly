@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
@@ -8,8 +7,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ItemDeleted implements ShouldBroadcast
-{
+class ItemDeleted implements ShouldBroadcast {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
   public function __construct(
@@ -18,8 +16,7 @@ class ItemDeleted implements ShouldBroadcast
   ) {
   }
 
-  public function broadcastOn(): array
-  {
+  public function broadcastOn(): array {
     return [
       new Channel('shopping-list.' . $this->shoppingListId),
     ];

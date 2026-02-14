@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Admin;
 
 use App\Models\ShoppingList;
@@ -7,65 +6,64 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class TagManager extends Component
-{
+class TagManager extends Component {
   public int $listId;
-  public string $newName = '';
-  public string $newColor = '#3b82f6';
-  public ?int $editingId = null;
-  public string $editName = '';
+  public string $newName   = '';
+  public string $newColor  = '#3b82f6';
+  public ?int $editingId   = null;
+  public string $editName  = '';
   public string $editColor = '#3b82f6';
 
-  public function create(): void
-  {
+  public function create(): void {
     $name = trim($this->newName);
-    if ($name === '') return;
+    if ($name === '') {
+      return;
+    }
 
     $list = ShoppingList::findOrFail($this->listId);
-    if (!$list->userHasAccess(Auth::user())) return;
+    if (! $list->userHasAccess(Auth::user())) {
+      return;
+    }
 
     $list->tags()->create([
-      'name' => $name,
+      'name'  => $name,
       'color' => $this->newColor,
     ]);
-    $this->newName = '';
+    $this->newName  = '';
     $this->newColor = '#3b82f6';
   }
 
-  public function startEdit(int $id): void
-  {
-    $tag = Tag::findOrFail($id);
+  public function startEdit(int $id): void {
+    $tag             = Tag::findOrFail($id);
     $this->editingId = $id;
-    $this->editName = $tag->name;
+    $this->editName  = $tag->name;
     $this->editColor = $tag->color;
   }
 
-  public function saveEdit(): void
-  {
+  public function saveEdit(): void {
     $name = trim($this->editName);
-    if ($name === '' || !$this->editingId) return;
+    if ($name === '' || ! $this->editingId) {
+      return;
+    }
 
     Tag::where('id', $this->editingId)->update([
-      'name' => $name,
+      'name'  => $name,
       'color' => $this->editColor,
     ]);
     $this->editingId = null;
   }
 
-  public function cancelEdit(): void
-  {
+  public function cancelEdit(): void {
     $this->editingId = null;
   }
 
-  public function delete(int $id): void
-  {
+  public function delete(int $id): void {
     Tag::where('id', $id)
       ->where('shopping_list_id', $this->listId)
       ->delete();
   }
 
-  public function render()
-  {
+  public function render() {
     $tags = Tag::where('shopping_list_id', $this->listId)
       ->orderBy('name')
       ->get();
