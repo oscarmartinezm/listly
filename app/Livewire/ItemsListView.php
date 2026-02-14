@@ -9,6 +9,7 @@ class ItemsListView extends Component {
   public ?ItemsList $list = null;
   public array $activeTagIds = [];
   public bool $showChecked   = true;
+  public bool $showUnchecked = true;
 
   public function mount(): void {
     $user       = Auth::user();
@@ -55,6 +56,10 @@ class ItemsListView extends Component {
     $this->showChecked = ! $this->showChecked;
   }
 
+  public function toggleShowUnchecked(): void {
+    $this->showUnchecked = ! $this->showUnchecked;
+  }
+
   public function onTagFilterChanged(array $activeTagIds): void {
     $this->activeTagIds = $activeTagIds;
   }
@@ -81,9 +86,13 @@ class ItemsListView extends Component {
         });
       }
 
-      if (! $this->showChecked) {
+      if (! $this->showChecked || ! $this->showUnchecked) {
         $categories->each(function ($category) {
-          $category->setRelation('items', $category->items->where('is_checked', false));
+          $category->setRelation('items', $category->items->filter(function ($item) {
+            if ($item->is_checked && ! $this->showChecked) return false;
+            if (! $item->is_checked && ! $this->showUnchecked) return false;
+            return true;
+          }));
         });
       }
     }

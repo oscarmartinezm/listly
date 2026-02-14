@@ -9,11 +9,15 @@
     <livewire:tag-filter :list="$list" :activeTagIds="$activeTagIds" :key="'tag-filter-' . $list->id" />
   @endif
 
-  {{-- Toggle checked items --}}
+  {{-- Filter buttons --}}
   <div class="mb-3 flex items-center gap-2">
     <button wire:click="toggleShowChecked"
-        class="text-xs px-3 py-1.5 rounded-full border {{ $showChecked ? 'bg-gray-200 text-gray-700' : 'bg-white text-gray-500' }}">
-    {{ $showChecked ? 'Ocultar comprados' : 'Mostrar comprados' }}
+        class="text-xs px-3 py-1.5 rounded-full border transition {{ $showChecked ? 'bg-green-100 text-green-700 border-green-300' : 'bg-white text-gray-400 border-gray-200' }}">
+    Marcados
+    </button>
+    <button wire:click="toggleShowUnchecked"
+        class="text-xs px-3 py-1.5 rounded-full border transition {{ $showUnchecked ? 'bg-blue-100 text-blue-700 border-blue-300' : 'bg-white text-gray-400 border-gray-200' }}">
+    Sin marcar
     </button>
   </div>
 
@@ -23,6 +27,7 @@
     <livewire:category-section
       :category="$category"
       :showChecked="$showChecked"
+      :showUnchecked="$showUnchecked"
       :key="'cat-' . $category->id" />
     @endif
   @endforeach

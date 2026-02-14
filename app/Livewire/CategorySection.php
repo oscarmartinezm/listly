@@ -13,6 +13,8 @@ class CategorySection extends Component {
   public Category $category;
   #[Reactive]
   public bool $showChecked;
+  #[Reactive]
+  public bool $showUnchecked;
   public bool $collapsed = false;
   public array $itemIds = [];
   public int $version = 0;
@@ -80,6 +82,10 @@ class CategorySection extends Component {
 
     if (! $this->showChecked) {
       $items = $items->where('is_checked', false)->values();
+    }
+
+    if (! $this->showUnchecked) {
+      $items = $items->where('is_checked', true)->values();
     }
 
     return view('livewire.category-section', compact('items'));
