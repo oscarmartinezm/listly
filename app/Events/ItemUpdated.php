@@ -16,7 +16,7 @@ class ItemUpdated implements ShouldBroadcast {
 
   public function broadcastOn(): array {
     return [
-      new Channel('shopping-list.' . $this->item->shopping_list_id),
+      new Channel('listly.' . $this->item->items_list_id),
     ];
   }
 }

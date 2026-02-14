@@ -3,7 +3,7 @@ namespace App\Livewire;
 
 use App\Events\ItemUpdated;
 use App\Models\Item;
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -14,7 +14,7 @@ class ItemEditModal extends Component {
   public ?int $categoryId      = null;
   public string $link          = '';
   public array $selectedTagIds = [];
-  public ?ShoppingList $list   = null;
+  public ?ItemsList $list   = null;
 
   #[On('open-edit-modal')]
   public function openModal(int $itemId): void {
@@ -24,7 +24,7 @@ class ItemEditModal extends Component {
     $this->categoryId     = $item->category_id;
     $this->link           = $item->link ?? '';
     $this->selectedTagIds = $item->tags->pluck('id')->toArray();
-    $this->list           = $item->shoppingList;
+    $this->list           = $item->itemsList;
     $this->show           = true;
   }
 

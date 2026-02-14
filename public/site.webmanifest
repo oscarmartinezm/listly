@@ -1,7 +1,7 @@
 {
   "name": "Listly",
   "short_name": "Listly",
-  "description": "Create and share smart lists for shopping, travel, and everyday planning. Organize items, avoid duplicates, and stay in sync in real time.",
+  "description": "Create and share smart lists for items, travel, and everyday planning. Organize items, avoid duplicates, and stay in sync in real time.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

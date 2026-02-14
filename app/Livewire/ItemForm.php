@@ -2,11 +2,11 @@
 namespace App\Livewire;
 
 use App\Events\ItemCreated;
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Livewire\Component;
 
 class ItemForm extends Component {
-  public ShoppingList $list;
+  public ItemsList $list;
   public string $text             = '';
   public ?int $categoryId         = null;
   public string $duplicateWarning = '';

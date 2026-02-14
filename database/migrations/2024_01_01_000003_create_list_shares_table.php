@@ -10,10 +10,10 @@ return new class extends Migration
   {
     Schema::create('list_shares', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('shopping_list_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('items_list_id')->constrained()->cascadeOnDelete();
       $table->foreignId('user_id')->constrained()->cascadeOnDelete();
       $table->timestamps();
-      $table->unique(['shopping_list_id', 'user_id']);
+      $table->unique(['items_list_id', 'user_id']);
     });
   }
 

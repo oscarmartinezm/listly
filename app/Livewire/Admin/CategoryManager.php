@@ -2,7 +2,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Category;
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -18,7 +18,7 @@ class CategoryManager extends Component {
       return;
     }
 
-    $list = ShoppingList::findOrFail($this->listId);
+    $list = ItemsList::findOrFail($this->listId);
     if (! $list->userHasAccess(Auth::user())) {
       return;
     }
@@ -53,13 +53,13 @@ class CategoryManager extends Component {
 
   public function delete(int $id): void {
     Category::where('id', $id)
-      ->where('shopping_list_id', $this->listId)
+      ->where('items_list_id', $this->listId)
       ->delete();
   }
 
   public function moveUp(int $id): void {
     $cat  = Category::findOrFail($id);
-    $prev = Category::where('shopping_list_id', $this->listId)
+    $prev = Category::where('items_list_id', $this->listId)
       ->where('order', '<', $cat->order)
       ->orderByDesc('order')
       ->first();
@@ -72,7 +72,7 @@ class CategoryManager extends Component {
 
   public function moveDown(int $id): void {
     $cat  = Category::findOrFail($id);
-    $next = Category::where('shopping_list_id', $this->listId)
+    $next = Category::where('items_list_id', $this->listId)
       ->where('order', '>', $cat->order)
       ->orderBy('order')
       ->first();
@@ -84,10 +84,10 @@ class CategoryManager extends Component {
   }
 
   public function render() {
-    $categories = Category::where('shopping_list_id', $this->listId)
+    $categories = Category::where('items_list_id', $this->listId)
       ->orderBy('order')
       ->get();
-    $listName = ShoppingList::findOrFail($this->listId)->name;
+    $listName = ItemsList::findOrFail($this->listId)->name;
 
     return view('livewire.admin.category-manager', compact('categories', 'listName'));
   }

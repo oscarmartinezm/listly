@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -22,7 +22,7 @@ class ListManager extends Component {
     }
 
     $user = Auth::user();
-    $list = ShoppingList::create([
+    $list = ItemsList::create([
       'name'    => $name,
       'user_id' => $user->id,
     ]);
@@ -37,7 +37,7 @@ class ListManager extends Component {
   }
 
   public function setPrimary(int $listId): void {
-    $list = ShoppingList::findOrFail($listId);
+    $list = ItemsList::findOrFail($listId);
     if (! $list->userHasAccess(Auth::user())) {
       return;
     }
@@ -47,7 +47,7 @@ class ListManager extends Component {
   }
 
   public function startEdit(int $listId): void {
-    $list = ShoppingList::findOrFail($listId);
+    $list = ItemsList::findOrFail($listId);
     if (! $list->userIsOwner(Auth::user())) {
       return;
     }
@@ -62,7 +62,7 @@ class ListManager extends Component {
       return;
     }
 
-    $list = ShoppingList::findOrFail($this->editingListId);
+    $list = ItemsList::findOrFail($this->editingListId);
     if (! $list->userIsOwner(Auth::user())) {
       return;
     }
@@ -76,7 +76,7 @@ class ListManager extends Component {
   }
 
   public function deleteList(int $listId): void {
-    $list = ShoppingList::findOrFail($listId);
+    $list = ItemsList::findOrFail($listId);
     if (! $list->userIsOwner(Auth::user())) {
       return;
     }

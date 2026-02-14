@@ -33,11 +33,11 @@ class User extends Authenticatable {
   }
 
   public function ownedLists(): HasMany {
-    return $this->hasMany(ShoppingList::class);
+    return $this->hasMany(ItemsList::class);
   }
 
   public function sharedLists(): BelongsToMany {
-    return $this->belongsToMany(ShoppingList::class, 'list_shares');
+    return $this->belongsToMany(ItemsList::class, 'list_shares');
   }
 
   public function allLists() {
@@ -45,6 +45,6 @@ class User extends Authenticatable {
   }
 
   public function primaryList(): BelongsTo {
-    return $this->belongsTo(ShoppingList::class, 'primary_list_id');
+    return $this->belongsTo(ItemsList::class, 'primary_list_id');
   }
 }

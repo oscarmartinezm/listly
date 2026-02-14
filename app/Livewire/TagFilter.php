@@ -1,11 +1,11 @@
 <?php
 namespace App\Livewire;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Livewire\Component;
 
 class TagFilter extends Component {
-  public ShoppingList $list;
+  public ItemsList $list;
   public array $activeTagIds = [];
 
   public function toggle(int $tagId): void {

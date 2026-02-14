@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -10,7 +10,7 @@ class ShareManager extends Component {
   public int $listId;
 
   public function regenerateToken(): void {
-    $list = ShoppingList::findOrFail($this->listId);
+    $list = ItemsList::findOrFail($this->listId);
     if (! $list->userIsOwner(Auth::user())) {
       return;
     }
@@ -19,7 +19,7 @@ class ShareManager extends Component {
   }
 
   public function removeUser(int $userId): void {
-    $list = ShoppingList::findOrFail($this->listId);
+    $list = ItemsList::findOrFail($this->listId);
     if (! $list->userIsOwner(Auth::user())) {
       return;
     }
@@ -28,7 +28,7 @@ class ShareManager extends Component {
   }
 
   public function render() {
-    $list     = ShoppingList::with('sharedUsers')->findOrFail($this->listId);
+    $list     = ItemsList::with('sharedUsers')->findOrFail($this->listId);
     $isOwner  = $list->userIsOwner(Auth::user());
     $shareUrl = $isOwner ? route('share.accept', $list->share_token) : null;
 

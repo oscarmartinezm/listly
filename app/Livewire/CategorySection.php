@@ -29,7 +29,7 @@ class CategorySection extends Component {
   public function uncheckAll(): void {
     $this->category->items()->where('is_checked', true)->update(['is_checked' => false]);
     $this->version++;
-    ListUpdated::dispatch($this->category->shoppingList);
+    ListUpdated::dispatch($this->category->itemsList);
   }
 
   #[On('item-changed')]
@@ -43,7 +43,7 @@ class CategorySection extends Component {
       return;
     }
 
-    $list = $this->category->shoppingList;
+    $list = $this->category->itemsList;
     $item = $list->items()->create([
       'text'        => $text,
       'category_id' => $this->category->id,

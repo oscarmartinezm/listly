@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model {
-  protected $fillable = ['name', 'color', 'shopping_list_id'];
+  protected $fillable = ['name', 'color', 'items_list_id'];
 
-  public function shoppingList(): BelongsTo {
-    return $this->belongsTo(ShoppingList::class);
+  public function itemsList(): BelongsTo {
+    return $this->belongsTo(ItemsList::class);
   }
 
   public function items(): BelongsToMany {

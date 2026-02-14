@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -20,7 +20,7 @@ class TagManager extends Component {
       return;
     }
 
-    $list = ShoppingList::findOrFail($this->listId);
+    $list = ItemsList::findOrFail($this->listId);
     if (! $list->userHasAccess(Auth::user())) {
       return;
     }
@@ -59,15 +59,15 @@ class TagManager extends Component {
 
   public function delete(int $id): void {
     Tag::where('id', $id)
-      ->where('shopping_list_id', $this->listId)
+      ->where('items_list_id', $this->listId)
       ->delete();
   }
 
   public function render() {
-    $tags = Tag::where('shopping_list_id', $this->listId)
+    $tags = Tag::where('items_list_id', $this->listId)
       ->orderBy('name')
       ->get();
-    $listName = ShoppingList::findOrFail($this->listId)->name;
+    $listName = ItemsList::findOrFail($this->listId)->name;
 
     return view('livewire.admin.tag-manager', compact('tags', 'listName'));
   }

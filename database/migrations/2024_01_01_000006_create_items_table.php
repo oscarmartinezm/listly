@@ -11,7 +11,7 @@ return new class extends Migration
     Schema::create('items', function (Blueprint $table) {
       $table->id();
       $table->string('text');
-      $table->foreignId('shopping_list_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('items_list_id')->constrained()->cascadeOnDelete();
       $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
       $table->boolean('is_checked')->default(false);
       $table->string('link')->nullable();

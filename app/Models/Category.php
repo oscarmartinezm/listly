@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model {
-  protected $fillable = ['name', 'shopping_list_id', 'order'];
+  protected $fillable = ['name', 'items_list_id', 'order'];
 
-  public function shoppingList(): BelongsTo {
-    return $this->belongsTo(ShoppingList::class);
+  public function itemsList(): BelongsTo {
+    return $this->belongsTo(ItemsList::class);
   }
 
   public function items(): HasMany {

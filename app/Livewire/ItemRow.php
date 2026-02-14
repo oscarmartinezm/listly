@@ -37,7 +37,7 @@ class ItemRow extends Component {
   }
 
   public function delete(): void {
-    $listId = $this->item->shopping_list_id;
+    $listId = $this->item->items_list_id;
     $itemId = $this->item->id;
     $this->item->delete();
     ItemDeletedEvent::dispatch($itemId, $listId);

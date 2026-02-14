@@ -11,7 +11,7 @@ return new class extends Migration
     Schema::create('categories', function (Blueprint $table) {
       $table->id();
       $table->string('name');
-      $table->foreignId('shopping_list_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('items_list_id')->constrained()->cascadeOnDelete();
       $table->integer('order')->default(0);
       $table->timestamps();
     });

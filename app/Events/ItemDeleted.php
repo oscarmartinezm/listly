@@ -12,13 +12,13 @@ class ItemDeleted implements ShouldBroadcast {
 
   public function __construct(
     public int $itemId,
-    public int $shoppingListId,
+    public int $itemsListId,
   ) {
   }
 
   public function broadcastOn(): array {
     return [
-      new Channel('shopping-list.' . $this->shoppingListId),
+      new Channel('listly.' . $this->itemsListId),
     ];
   }
 }

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -25,7 +25,7 @@ class GoogleAuthController extends Controller {
     );
 
     if ($user->wasRecentlyCreated) {
-      $list = ShoppingList::create([
+      $list = ItemsList::create([
         'name'    => 'Mi Lista',
         'user_id' => $user->id,
       ]);

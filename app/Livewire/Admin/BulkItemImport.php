@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -14,7 +14,7 @@ class BulkItemImport extends Component {
   public int $skippedCount     = 0;
 
   public function import(): void {
-    $list = ShoppingList::findOrFail($this->listId);
+    $list = ItemsList::findOrFail($this->listId);
     if (! $list->userHasAccess(Auth::user())) {
       return;
     }
@@ -61,7 +61,7 @@ class BulkItemImport extends Component {
   }
 
   public function render() {
-    $list       = ShoppingList::findOrFail($this->listId);
+    $list       = ItemsList::findOrFail($this->listId);
     $categories = $list->categories;
     $listName   = $list->name;
     return view('livewire.admin.bulk-item-import', compact('categories', 'listName'));

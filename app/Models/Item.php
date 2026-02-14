@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Item extends Model {
-  protected $fillable = ['text', 'shopping_list_id', 'category_id', 'is_checked', 'link', 'order'];
+  protected $fillable = ['text', 'items_list_id', 'category_id', 'is_checked', 'link', 'order'];
 
   protected function casts(): array {
     return [
@@ -14,8 +14,8 @@ class Item extends Model {
     ];
   }
 
-  public function shoppingList(): BelongsTo {
-    return $this->belongsTo(ShoppingList::class);
+  public function itemsList(): BelongsTo {
+    return $this->belongsTo(ItemsList::class);
   }
 
   public function category(): BelongsTo {

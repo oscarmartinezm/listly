@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class ShoppingList extends Model {
+class ItemsList extends Model {
   protected $fillable = ['name', 'user_id', 'share_token'];
 
   protected static function booted(): void {
-    static::creating(function (ShoppingList $list) {
+    static::creating(function (ItemsList $list) {
       if (empty($list->share_token)) {
         $list->share_token = Str::random(32);
       }

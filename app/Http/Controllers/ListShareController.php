@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Illuminate\Support\Facades\Auth;
 
 class ListShareController extends Controller {
   public function accept(string $token) {
-    $list = ShoppingList::where('share_token', $token)->firstOrFail();
+    $list = ItemsList::where('share_token', $token)->firstOrFail();
     $user = Auth::user();
 
     if ($list->user_id === $user->id) {

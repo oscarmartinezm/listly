@@ -12,9 +12,9 @@ return new class extends Migration
       $table->id();
       $table->string('name');
       $table->string('color')->default('#3b82f6');
-      $table->foreignId('shopping_list_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('items_list_id')->constrained()->cascadeOnDelete();
       $table->timestamps();
-      $table->unique(['shopping_list_id', 'name']);
+      $table->unique(['items_list_id', 'name']);
     });
   }
 

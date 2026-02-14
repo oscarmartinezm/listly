@@ -1,12 +1,12 @@
 <?php
 namespace App\Livewire;
 
-use App\Models\ShoppingList;
+use App\Models\ItemsList;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class ShoppingListView extends Component {
-  public ?ShoppingList $list = null;
+class ItemsListView extends Component {
+  public ?ItemsList $list = null;
   public array $activeTagIds = [];
   public bool $showChecked   = true;
 
@@ -33,7 +33,7 @@ class ShoppingListView extends Component {
     ];
 
     if ($this->list) {
-      $channel                             = "echo:shopping-list.{$this->list->id}";
+      $channel                             = "echo:listly.{$this->list->id}";
       $listeners["{$channel},ItemCreated"] = 'refreshList';
       $listeners["{$channel},ItemUpdated"] = 'refreshList';
       $listeners["{$channel},ItemDeleted"] = 'refreshList';
@@ -88,7 +88,7 @@ class ShoppingListView extends Component {
       }
     }
 
-    return view('livewire.shopping-list-view', [
+    return view('livewire.items-list-view', [
       'categories' => $categories,
     ]);
   }
