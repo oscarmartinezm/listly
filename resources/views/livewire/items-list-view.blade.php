@@ -11,13 +11,11 @@
 
   {{-- Filter buttons --}}
   <div class="mb-3 flex items-center gap-2">
-    <button wire:click="toggleShowChecked"
-        class="text-xs px-3 py-1.5 rounded-full border transition {{ $showChecked ? 'bg-green-100 text-green-700 border-green-300' : 'bg-white text-gray-400 border-gray-200' }}">
-    Marcados
+    <button wire:click="toggleShowUnchecked" class="text-xs px-3 py-1.5 rounded-full border transition {{ $showUnchecked ? 'bg-blue-100 text-blue-700 border-blue-300' : 'bg-white text-gray-400 border-gray-200' }}">
+      Pendientes
     </button>
-    <button wire:click="toggleShowUnchecked"
-        class="text-xs px-3 py-1.5 rounded-full border transition {{ $showUnchecked ? 'bg-blue-100 text-blue-700 border-blue-300' : 'bg-white text-gray-400 border-gray-200' }}">
-    Sin marcar
+    <button wire:click="toggleShowChecked" class="text-xs px-3 py-1.5 rounded-full border transition {{ $showChecked ? 'bg-green-100 text-green-700 border-green-300' : 'bg-white text-gray-400 border-gray-200' }}">
+      Marcados
     </button>
   </div>
 
