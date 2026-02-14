@@ -1,14 +1,14 @@
 <div class="px-4 py-2.5 flex items-center gap-3 group {{ $item->is_checked ? 'bg-gray-50' : '' }}">
   {{-- Checkbox --}}
   <button wire:click="toggleCheck" class="flex-shrink-0">
-  <div class="w-5 h-5 rounded border-2 flex items-center justify-center transition
-    {{ $item->is_checked ? 'bg-green-500 border-green-500' : 'border-gray-300 hover:border-blue-400' }}">
-    @if($item->is_checked)
-    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-    </svg>
-    @endif
-  </div>
+    <div class="w-5 h-5 rounded border-2 flex items-center justify-center transition
+      {{ $item->is_checked ? 'bg-green-500 border-green-500' : 'border-gray-300 hover:border-blue-400' }}">
+      @if($item->is_checked)
+      <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+      </svg>
+      @endif
+    </div>
   </button>
 
   {{-- Text --}}
@@ -24,10 +24,20 @@
     </form>
   @else
     <div class="flex items-center gap-2">
-    <span class="text-sm {{ $item->is_checked ? 'line-through text-gray-400' : 'text-gray-800' }} cursor-pointer"
-        wire:click="startEdit">
+    <span class="text-sm {{ $item->is_checked ? 'line-through text-gray-400' : 'text-gray-800' }} cursor-pointer" wire:click="startEdit">
       {{ $item->text }}
     </span>
+    {{-- Tags --}}
+    @if($item->tags->count())
+    <span class="flex gap-1 mt-0.5">
+      @foreach($item->tags as $tag)
+      <span class="text-xs px-1.5 py-0.5 rounded-full text-white"
+          style="background-color: {{ $tag->color }}">
+        {{ $tag->name }}
+      </span>
+      @endforeach
+    </span>
+    @endif
     @if($item->link)
       <a href="{{ $item->link }}" target="_blank" class="text-blue-400 hover:text-blue-600 flex-shrink-0">
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,17 +46,6 @@
       </a>
     @endif
     </div>
-    {{-- Tags --}}
-    @if($item->tags->count())
-    <div class="flex gap-1 mt-0.5">
-      @foreach($item->tags as $tag)
-      <span class="text-xs px-1.5 py-0.5 rounded-full text-white"
-          style="background-color: {{ $tag->color }}">
-        {{ $tag->name }}
-      </span>
-      @endforeach
-    </div>
-    @endif
   @endif
   </div>
 
