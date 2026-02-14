@@ -51,7 +51,7 @@
 
   {{-- Actions --}}
   @unless($editing)
-  <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+  <div class="flex items-center gap-1">
     <button wire:click="$dispatch('open-edit-modal', { itemId: {{ $item->id }} })"
         class="text-gray-400 hover:text-blue-500 p-1">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

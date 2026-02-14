@@ -13,7 +13,7 @@ class GoogleAuthController extends Controller {
   }
 
   public function callback() {
-    $googleUser = Socialite::driver('google')->user();
+    $googleUser = Socialite::driver('google')->stateless()->user();
 
     $user = User::updateOrCreate(
       ['google_id' => $googleUser->getId()],
