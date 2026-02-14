@@ -18,7 +18,7 @@
       <div class="flex items-center gap-3">
         <a href="{{ route('home') }}"
            class="text-sm px-3 py-1.5 rounded-lg {{ request()->routeIs('home') ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100' }}">
-          Home
+          Inicio
         </a>
         <a href="{{ route('admin') }}"
            class="text-sm px-3 py-1.5 rounded-lg {{ request()->routeIs('admin') ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100' }}">
