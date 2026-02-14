@@ -1,4 +1,4 @@
-const CACHE_NAME = 'miapp-cache-v1';
+const CACHE_NAME = 'listly-cache-v1';
 const URLS_TO_CACHE = [
   '/',
   '/offline'

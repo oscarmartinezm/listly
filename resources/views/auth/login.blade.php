@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  @include('partials.pwa-head')
   <title>{{ config('app.name') }} - Iniciar sesion</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -27,5 +28,6 @@
     Iniciar con Google
   </a>
   </div>
+  @include('partials.pwa-sw')
 </body>
 </html>

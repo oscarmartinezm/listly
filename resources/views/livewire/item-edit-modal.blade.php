@@ -32,8 +32,7 @@
       {{-- Link --}}
       <div>
       <label class="text-sm text-gray-600 mb-1 block">Link (opcional)</label>
-      <input type="url" wire:model="link" placeholder="https://..."
-           class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <input type="url" wire:model="link" placeholder="https://..." class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
 
       {{-- Tags --}}

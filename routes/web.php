@@ -14,3 +14,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/admin', fn () => view('admin'))->name('admin');
   Route::get('/share/{token}', [ListShareController::class, 'accept'])->name('share.accept');
 });
+
+Route::get('/offline', function () {
+  return view('offline');
+})->name('offline');
