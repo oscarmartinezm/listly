@@ -14,7 +14,6 @@ class ItemRow extends Component {
   public function toggleCheck(): void {
     $this->item->update(['is_checked' => ! $this->item->is_checked]);
     ItemUpdated::dispatch($this->item);
-    $this->dispatch('item-changed');
   }
 
   public function startEdit(): void {

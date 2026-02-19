@@ -41,6 +41,23 @@
   </main>
 
   @livewireScripts
+  <script>
+  function toggleItemCheck(btn) {
+    var row = btn.closest('.item-row');
+    row.classList.toggle('bg-gray-50');
+    var box = btn.querySelector('[data-box]');
+    box.classList.toggle('bg-green-500');
+    box.classList.toggle('border-green-500');
+    box.classList.toggle('border-gray-300');
+    box.querySelector('svg').classList.toggle('hidden');
+    var text = row.querySelector('[data-text]');
+    if (text) {
+      text.classList.toggle('line-through');
+      text.classList.toggle('text-gray-400');
+      text.classList.toggle('text-gray-800');
+    }
+  }
+  </script>
   @include('partials.pwa-sw')
 </body>
 </html>

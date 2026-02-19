@@ -27,7 +27,6 @@ class ItemsListView extends Component {
   public function getListeners(): array {
     $listeners = [
       'tag-filter-changed' => 'onTagFilterChanged',
-      'item-changed'       => 'refreshList',
       'item-created'       => 'refreshList',
       'item-deleted'       => 'refreshList',
       'list-updated'       => 'refreshList',

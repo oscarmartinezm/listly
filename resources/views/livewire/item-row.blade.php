@@ -1,13 +1,11 @@
-<div class="px-4 py-2.5 flex items-center gap-3 group {{ $item->is_checked ? 'bg-gray-50' : '' }}">
+<div class="item-row px-4 py-2.5 flex items-center gap-3 group {{ $item->is_checked ? 'bg-gray-50' : '' }}">
   {{-- Checkbox --}}
-  <button wire:click="toggleCheck" class="flex-shrink-0">
-    <div class="w-5 h-5 rounded border-2 flex items-center justify-center transition
+  <button wire:click="toggleCheck" onclick="toggleItemCheck(this)" class="flex-shrink-0">
+    <div data-box class="w-5 h-5 rounded border-2 flex items-center justify-center transition
       {{ $item->is_checked ? 'bg-green-500 border-green-500' : 'border-gray-300 hover:border-blue-400' }}">
-      @if($item->is_checked)
-      <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-3 h-3 text-white {{ $item->is_checked ? '' : 'hidden' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
       </svg>
-      @endif
     </div>
   </button>
 
@@ -24,7 +22,7 @@
     </form>
   @else
     <div class="flex items-center gap-2">
-    <span class="text-sm {{ $item->is_checked ? 'line-through text-gray-400' : 'text-gray-800' }} cursor-pointer" wire:click="startEdit">
+    <span data-text class="text-sm {{ $item->is_checked ? 'line-through text-gray-400' : 'text-gray-800' }} cursor-pointer" wire:click="startEdit">
       {{ $item->text }}
     </span>
     {{-- Tags --}}
