@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-visual">
   @include('partials.pwa-head')
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name') }}</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   @livewireStyles
 </head>
-<body class="min-h-screen bg-gray-100">
+<body class="min-h-dvh bg-gray-100">
   {{-- Navigation --}}
   <nav class="bg-white shadow-sm sticky top-0 z-50">
   <div class="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
