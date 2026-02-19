@@ -2,9 +2,9 @@
   <div class="bg-white rounded-xl shadow-sm overflow-hidden">
   {{-- Header --}}
   <div class="px-4 py-2.5 bg-gray-50 border-b flex items-center justify-between cursor-pointer"
-     wire:click="toggleCollapse">
+     onclick="let c=this.parentElement.querySelector('[data-content]'); c.hidden=!c.hidden; this.querySelector('[data-arrow]').classList.toggle('rotate-90')">
     <div class="flex items-center gap-2">
-    <svg class="w-4 h-4 text-gray-400 transition-transform {{ $collapsed ? '' : 'rotate-90' }}"
+    <svg data-arrow class="w-4 h-4 text-gray-400 transition-transform rotate-90"
        fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
     </svg>
@@ -29,7 +29,7 @@
   </div>
 
   {{-- Content --}}
-  @unless($collapsed)
+  <div data-content>
     {{-- Add Item --}}
     <div class="px-4 py-2 border-b">
     <form wire:submit="addItem" class="flex gap-2">
@@ -51,6 +51,6 @@
       <div class="px-4 py-3 text-sm text-gray-400 text-center">Sin items</div>
     @endif
     </div>
-  @endunless
+  </div>
   </div>
 </div>
