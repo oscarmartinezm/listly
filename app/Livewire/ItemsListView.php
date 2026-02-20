@@ -10,6 +10,7 @@ class ItemsListView extends Component {
   public array $activeTagIds = [];
   public bool $showChecked   = true;
   public bool $showUnchecked = true;
+  public int $refreshKey = 0;
 
   public function mount(): void {
     $user       = Auth::user();
@@ -28,6 +29,7 @@ class ItemsListView extends Component {
     $listeners = [
       'tag-filter-changed' => 'onTagFilterChanged',
       'item-created'       => 'refreshList',
+      'item-updated'       => 'refreshList',
       'item-deleted'       => 'refreshList',
       'list-updated'       => 'refreshList',
     ];
@@ -35,7 +37,6 @@ class ItemsListView extends Component {
     if ($this->list) {
       $channel                             = "echo:listly.{$this->list->id}";
       $listeners["{$channel},ItemCreated"] = 'refreshList';
-      $listeners["{$channel},ItemUpdated"] = 'refreshList';
       $listeners["{$channel},ItemDeleted"] = 'refreshList';
       $listeners["{$channel},ListUpdated"] = 'refreshList';
     }
@@ -66,6 +67,7 @@ class ItemsListView extends Component {
   public function refreshList(): void {
     if ($this->list) {
       $this->list = $this->list->fresh();
+      $this->refreshKey++;
     }
   }
 

@@ -26,7 +26,7 @@ class ItemRow extends Component {
     if ($this->editText !== '') {
       $this->item->update(['text' => $this->editText]);
       ItemUpdated::dispatch($this->item);
-      $this->dispatch('item-changed');
+      $this->dispatch('item-updated');
     }
     $this->editing = false;
   }

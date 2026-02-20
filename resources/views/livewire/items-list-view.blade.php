@@ -26,7 +26,7 @@
       :category="$category"
       :showChecked="$showChecked"
       :showUnchecked="$showUnchecked"
-      :key="'cat-' . $category->id" />
+      :key="'cat-' . $category->id . '-' . $refreshKey" />
     @endif
   @endforeach
 

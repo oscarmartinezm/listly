@@ -44,7 +44,7 @@ class ItemEditModal extends Component {
     ItemUpdated::dispatch($item);
 
     $this->show = false;
-    $this->dispatch('item-changed');
+    $this->dispatch('item-updated');
   }
 
   public function closeModal(): void {

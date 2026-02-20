@@ -4,25 +4,19 @@ namespace App\Livewire;
 use App\Events\ItemCreated;
 use App\Events\ListUpdated;
 use App\Models\Category;
-use App\Models\Item;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class CategorySection extends Component {
+  #[Reactive]
   public Category $category;
   #[Reactive]
   public bool $showChecked;
   #[Reactive]
   public bool $showUnchecked;
   public bool $collapsed = false;
-  public array $itemIds = [];
   public int $version = 0;
   public string $newItemText = '';
-
-  public function mount(): void {
-    $this->loadItems();
-  }
 
   public function toggleCollapse(): void {
     $this->collapsed = ! $this->collapsed;
@@ -32,11 +26,6 @@ class CategorySection extends Component {
     $this->category->items()->where('is_checked', true)->update(['is_checked' => false]);
     $this->version++;
     ListUpdated::dispatch($this->category->itemsList);
-  }
-
-  #[On('item-changed')]
-  public function onItemChanged(): void {
-    // Re-render para actualizar visibilidad del boton Deseleccionar
   }
 
   public function addItem(): void {
@@ -55,30 +44,12 @@ class CategorySection extends Component {
     ItemCreated::dispatch($item);
     $this->newItemText = '';
     $this->js("document.getElementById('input-add-item-{$this->category->id}').value = ''");
-    $this->loadItems();
     $this->dispatch('item-created');
   }
 
-  public function reloadCategory(): void {
-    $this->loadItems();
-  }
-
-  private function loadItems(): void {
-    $this->itemIds = $this->category->items()
-      ->orderBy('is_checked')
-      ->orderByRaw('LOWER(text)')
-      ->pluck('id')
-      ->toArray();
-  }
-
   public function render() {
-    $items = Item::whereIn('id', $this->itemIds)
-      ->with('tags')
-      ->get()
-      ->sortBy(function ($item) {
-        return array_search($item->id, $this->itemIds);
-      })
-      ->values();
+    // Cargar items desde la relación (ya cargados por ItemsListView)
+    $items = $this->category->items;
 
     if (! $this->showChecked) {
       $items = $items->where('is_checked', false)->values();
