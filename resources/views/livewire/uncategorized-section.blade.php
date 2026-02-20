@@ -21,16 +21,20 @@
       {{-- Add Item --}}
       <div class="px-4 py-2.5 border-b dark:border-gray-700">
         <form wire:submit="addItem" class="flex gap-2">
-          <input type="text" wire:model="newItemText" id="input-add-uncategorized" placeholder="Agregar item..."
+          <input type="text" wire:model="newItemText"
+                 oninput="filterCategoryItems(this, 'uncat-collapsible')"
+                 id="input-add-uncategorized" placeholder="Agregar item..."
              class="flex-1 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
           <button type="submit" class="bg-blue-500 text-white text-base px-4 py-2 rounded-lg hover:bg-blue-600 transition">+</button>
         </form>
       </div>
 
       {{-- Items --}}
-      <div class="divide-y dark:divide-gray-700">
+      <div class="divide-y dark:divide-gray-700" data-items-container="uncat-collapsible">
         @foreach($items as $item)
-          <livewire:item-row :item="$item" :key="'item-' . $item->id . '-v' . $version" />
+          <div data-item-text="{{ strtolower($item->text) }}">
+            <livewire:item-row :item="$item" :key="'item-' . $item->id . '-v' . $version" />
+          </div>
         @endforeach
         @if($items->isEmpty())
           <div class="px-4 py-3 text-sm text-gray-400 dark:text-gray-500 text-center">Sin items</div>
@@ -49,16 +53,20 @@
     {{-- Add Item --}}
     <div class="px-4 py-2.5 border-b dark:border-gray-700">
       <form wire:submit="addItem" class="flex gap-2">
-        <input type="text" wire:model="newItemText" id="input-add-uncategorized" placeholder="Agregar item..."
+        <input type="text" wire:model="newItemText"
+               oninput="filterCategoryItems(this, 'uncat-direct')"
+               id="input-add-uncategorized" placeholder="Agregar item..."
            class="flex-1 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         <button type="submit" class="bg-blue-500 text-white text-base px-4 py-2 rounded-lg hover:bg-blue-600 transition">+</button>
       </form>
     </div>
 
     {{-- Items --}}
-    <div class="divide-y dark:divide-gray-700">
+    <div class="divide-y dark:divide-gray-700" data-items-container="uncat-direct">
       @foreach($items as $item)
-        <livewire:item-row :item="$item" :key="'item-' . $item->id . '-v' . $version" />
+        <div data-item-text="{{ strtolower($item->text) }}">
+          <livewire:item-row :item="$item" :key="'item-' . $item->id . '-v' . $version" />
+        </div>
       @endforeach
       @if($items->isEmpty())
         <div class="px-4 py-3 text-sm text-gray-400 dark:text-gray-500 text-center">No hay items</div>

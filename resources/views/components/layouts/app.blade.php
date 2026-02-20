@@ -77,6 +77,22 @@
       }
     });
 
+    function filterCategoryItems(input, containerId) {
+      const filterText = input.value.toLowerCase();
+      const container = document.querySelector('[data-items-container="' + containerId + '"]');
+      if (!container) return;
+
+      const items = container.querySelectorAll('[data-item-text]');
+      items.forEach(item => {
+        const itemText = item.getAttribute('data-item-text');
+        if (filterText.length < 2 || itemText.includes(filterText)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
   </script>
   @include('partials.pwa-sw')
 </body>
