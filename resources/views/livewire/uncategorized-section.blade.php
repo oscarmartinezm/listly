@@ -13,7 +13,7 @@
         <span class="text-base font-semibold text-gray-600 dark:text-gray-300">Sin Categoría</span>
         <span class="text-xs text-gray-400 dark:text-gray-500">({{ $items->count() }})</span>
       </div>
-      <button wire:click.stop="uncheckAll" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar</button>
+      <button wire:click.stop="uncheckAll" wire:confirm="¿Desmarcar todos los items sin categoría?" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar Todo</button>
     </div>
 
     {{-- Content --}}
@@ -43,7 +43,7 @@
   <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
     {{-- Header without collapsible --}}
     <div class="px-4 py-2.5 border-b dark:border-gray-700 flex justify-end">
-      <button wire:click="uncheckAll" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar</button>
+      <button wire:click="uncheckAll" wire:confirm="¿Desmarcar todos los items?" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar Todo</button>
     </div>
 
     {{-- Add Item --}}

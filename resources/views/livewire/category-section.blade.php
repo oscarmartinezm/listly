@@ -11,7 +11,7 @@
     <span class="text-base font-semibold text-gray-600 dark:text-gray-300">{{ $category->name }}</span>
     <span class="text-xs text-gray-400 dark:text-gray-500">({{ $items->count() }})</span>
     </div>
-    <button wire:click.stop="uncheckAll" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar</button>
+    <button wire:click.stop="uncheckAll" wire:confirm="¿Desmarcar todos los items de esta categoría?" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar Todo</button>
   </div>
 
   {{-- Content --}}
