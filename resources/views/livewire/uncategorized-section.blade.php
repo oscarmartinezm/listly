@@ -13,6 +13,9 @@
         <span class="text-base font-semibold text-gray-600 dark:text-gray-300">Sin Categoría</span>
         <span class="text-xs text-gray-400 dark:text-gray-500">({{ $items->count() }})</span>
       </div>
+      @if($items->where('is_checked', true)->count())
+      <button wire:click.stop="uncheckAll" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar</button>
+      @endif
     </div>
 
     {{-- Content --}}
