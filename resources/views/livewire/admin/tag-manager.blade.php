@@ -32,9 +32,9 @@
       <span class="text-sm text-gray-800 dark:text-gray-100">{{ $tag->name }}</span>
       </div>
       <div class="flex items-center gap-2">
-      <button wire:click="startEdit({{ $tag->id }})" class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">Editar</button>
+      <button wire:click="startEdit({{ $tag->id }})" class="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">Editar</button>
       <button wire:click="delete({{ $tag->id }})" wire:confirm="Eliminar este tag?"
-          class="text-xs text-red-400 hover:text-red-600">Eliminar</button>
+          class="text-sm text-red-400 hover:text-red-600">Eliminar</button>
       </div>
     @endif
     </div>

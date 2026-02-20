@@ -33,7 +33,6 @@
         <img src="{{ $user->avatar }}" class="w-6 h-6 rounded-full" alt="">
       @endif
       <span class="text-sm text-gray-800 dark:text-gray-100">{{ $user->name }}</span>
-      <span class="text-xs text-gray-400 dark:text-gray-500">{{ $user->email }}</span>
       </div>
       <button wire:click="removeUser({{ $user->id }})" wire:confirm="Quitar acceso a {{ $user->name }}?"
           class="text-xs text-red-400 hover:text-red-600">Quitar</button>

@@ -45,11 +45,11 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
-        <a href="{{ route('home') }}" class="text-sm px-3 py-2 rounded-lg {{ request()->routeIs('home') ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-          Inicio
+        <a href="{{ route('home') }}" class="text-sm px-3 py-2 rounded-lg truncate max-w-[8rem] {{ request()->routeIs('home') ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+          {{ Auth::user()->primaryList->name ?? 'Inicio' }}
         </a>
         <a href="{{ route('admin') }}" class="text-sm px-3 py-2 rounded-lg {{ request()->routeIs('admin') ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-          Admin
+          Ajustes
         </a>
         <form method="POST" action="{{ route('logout') }}">
           @csrf

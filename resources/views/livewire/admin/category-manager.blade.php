@@ -29,9 +29,9 @@
       <div class="flex items-center gap-2">
       <button wire:click="moveUp({{ $cat->id }})" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xs">&#9650;</button>
       <button wire:click="moveDown({{ $cat->id }})" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xs">&#9660;</button>
-      <button wire:click="startEdit({{ $cat->id }})" class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">Editar</button>
+      <button wire:click="startEdit({{ $cat->id }})" class="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">Editar</button>
       <button wire:click="delete({{ $cat->id }})" wire:confirm="Eliminar esta categoria? Los items quedaran sin categoria."
-          class="text-xs text-red-400 hover:text-red-600">Eliminar</button>
+          class="text-sm text-red-400 hover:text-red-600">Eliminar</button>
       </div>
     @endif
     </div>
