@@ -21,6 +21,10 @@
       display: none !important;
     }
 
+    [x-cloak] {
+      display: none !important;
+    }
+
   </style>
   @include('partials.pwa-head')
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,6 +48,9 @@
   <main class="max-w-2xl mx-auto px-4 py-4">
     {{ $slot }}
   </main>
+
+  {{-- Confirm Dialog --}}
+  <livewire:confirm-dialog />
 
   @livewireScripts
   <script>

@@ -22,6 +22,22 @@ class UncategorizedSection extends Component {
   public int $version = 0;
   public string $newItemText = '';
 
+  public function confirmUncheckAll(): void {
+    $this->dispatch('showConfirmDialog', [
+      'title' => '¿Desmarcar todos?',
+      'message' => '¿Estás seguro de que quieres desmarcar todos los items sin categoría?',
+      'confirmText' => 'Sí, desmarcar',
+      'cancelText' => 'Cancelar',
+      'confirmEvent' => 'uncheckAll-uncategorized-' . $this->list->id,
+    ]);
+  }
+
+  public function getListeners(): array {
+    return [
+      'uncheckAll-uncategorized-' . $this->list->id => 'uncheckAll',
+    ];
+  }
+
   public function uncheckAll(): void {
     $this->list->items()->whereNull('category_id')->where('is_checked', true)->update(['is_checked' => false]);
     $this->version++;

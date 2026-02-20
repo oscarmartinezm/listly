@@ -25,6 +25,22 @@ class CategorySection extends Component {
     $this->collapsed = ! $this->collapsed;
   }
 
+  public function confirmUncheckAll(): void {
+    $this->dispatch('showConfirmDialog', [
+      'title' => '¿Desmarcar todos?',
+      'message' => '¿Estás seguro de que quieres desmarcar todos los items de esta categoría?',
+      'confirmText' => 'Sí, desmarcar',
+      'cancelText' => 'Cancelar',
+      'confirmEvent' => 'uncheckAll-' . $this->category->id,
+    ]);
+  }
+
+  public function getListeners(): array {
+    return [
+      'uncheckAll-' . $this->category->id => 'uncheckAll',
+    ];
+  }
+
   public function uncheckAll(): void {
     $this->category->items()->where('is_checked', true)->update(['is_checked' => false]);
     $this->version++;
