@@ -8,7 +8,6 @@ use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class CategorySection extends Component {
-  #[Reactive]
   public Category $category;
   #[Reactive]
   public bool $showChecked;

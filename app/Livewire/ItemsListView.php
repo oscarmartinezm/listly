@@ -79,6 +79,7 @@ class ItemsListView extends Component {
   public function render() {
     $categories = collect();
     $hasCategories = false;
+    $hasUncategorizedItems = false;
 
     if ($this->list) {
       $categories = $this->list->categories()->with(['items' => function ($query) {
@@ -86,6 +87,9 @@ class ItemsListView extends Component {
       }])->get();
 
       $hasCategories = $categories->isNotEmpty();
+
+      // Verificar si hay items sin categoría
+      $hasUncategorizedItems = $this->list->items()->whereNull('category_id')->exists();
 
       if (! empty($this->activeTagIds)) {
         $categories->each(function ($category) {
@@ -109,6 +113,7 @@ class ItemsListView extends Component {
     return view('livewire.items-list-view', [
       'categories' => $categories,
       'hasCategories' => $hasCategories,
+      'hasUncategorizedItems' => $hasUncategorizedItems,
     ]);
   }
 }

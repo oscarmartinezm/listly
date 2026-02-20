@@ -19,13 +19,15 @@
     </button>
   </div>
 
-  {{-- Uncategorized items (shown without collapsible if no categories) --}}
+  {{-- Uncategorized items (shown only if there are uncategorized items OR no categories exist) --}}
+  @if($hasUncategorizedItems || !$hasCategories)
   <livewire:uncategorized-section
     :list="$list"
     :showChecked="$showChecked"
     :showUnchecked="$showUnchecked"
     :showCollapsible="$hasCategories"
     :key="'uncat-' . $list->id . '-' . $refreshKey" />
+  @endif
 
   {{-- Categories --}}
   @foreach($categories as $category)
