@@ -14,14 +14,14 @@
       <div>
       <label class="text-sm text-gray-600 dark:text-gray-300 mb-1 block">Nombre</label>
       <input type="text" wire:model="text"
-           class="w-full text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+           class="w-full text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
 
       {{-- Category --}}
       <div>
       <label class="text-sm text-gray-600 dark:text-gray-300 mb-1 block">Categoria</label>
       <select wire:model="categoryId"
-          class="w-full text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
+          class="w-full text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
         <option value="">Sin categoria</option>
         @foreach($categories as $cat)
         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -32,7 +32,7 @@
       {{-- Link --}}
       <div>
       <label class="text-sm text-gray-600 dark:text-gray-300 mb-1 block">Link (opcional)</label>
-      <input type="url" wire:model="link" placeholder="https://..." class="w-full text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <input type="url" wire:model="link" placeholder="https://..." class="w-full text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
 
       {{-- Tags --}}
@@ -42,7 +42,7 @@
         <div class="flex flex-wrap gap-2">
         @foreach($tags as $tag)
           <button type="button" wire:click="toggleTagSelection({{ $tag->id }})"
-              class="text-xs px-2.5 py-1 rounded-full border transition
+              class="text-sm px-3 py-1.5 rounded-full border transition
               {{ in_array($tag->id, $selectedTagIds) ? 'text-white border-transparent' : 'text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700' }}"
               style="{{ in_array($tag->id, $selectedTagIds) ? 'background-color: ' . $tag->color : '' }}">
           {{ $tag->name }}
@@ -56,11 +56,11 @@
     {{-- Actions --}}
     <div class="mt-6 flex gap-2 justify-end">
       <button wire:click="closeModal"
-          class="text-sm px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+          class="text-base px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
       Cancelar
       </button>
       <button wire:click="save"
-          class="text-sm px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600">
+          class="text-base px-4 py-2.5 rounded-lg bg-blue-500 text-white hover:bg-blue-600">
       Guardar
       </button>
     </div>
