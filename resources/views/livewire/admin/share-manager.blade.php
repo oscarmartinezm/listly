@@ -7,18 +7,20 @@
   {{-- Share Link --}}
   <div class="px-4 py-3 border-b dark:border-gray-700">
     <label class="text-xs text-gray-500 dark:text-gray-400 mb-1 block">Link para compartir</label>
-    <div class="flex gap-2" x-data="{ copied: false }">
+    <div class="space-y-2" x-data="{ copied: false }">
     <input type="text" value="{{ $shareUrl }}" readonly
-         class="flex-1 text-xs border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-    <button @click="navigator.clipboard.writeText('{{ $shareUrl }}'); copied = true; setTimeout(() => copied = false, 2000)"
-        class="text-xs px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-        x-text="copied ? 'Copiado!' : 'Copiar'">
-      Copiar
-    </button>
-    <button wire:click="regenerateToken" wire:confirm="Regenerar el link? El link anterior dejara de funcionar."
-        class="text-xs px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition">
-      Regenerar
-    </button>
+         class="w-full text-xs border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+    <div class="flex gap-2">
+      <button @click="navigator.clipboard.writeText('{{ $shareUrl }}'); copied = true; setTimeout(() => copied = false, 2000)"
+          class="flex-1 text-xs px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+          x-text="copied ? 'Copiado!' : 'Copiar'">
+        Copiar
+      </button>
+      <button wire:click="regenerateToken" wire:confirm="Regenerar el link? El link anterior dejara de funcionar."
+          class="flex-1 text-xs px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition">
+        Regenerar
+      </button>
+    </div>
     </div>
   </div>
 

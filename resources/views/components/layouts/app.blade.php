@@ -11,6 +11,10 @@
     }
   })();
   </script>
+  <style>
+    .dark [data-icon-moon] { display: none !important; }
+    html:not(.dark) [data-icon-sun] { display: none !important; }
+  </style>
   @include('partials.pwa-head')
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name') }}</title>
@@ -28,7 +32,7 @@
     <button id="dark-mode-toggle" onclick="toggleDarkMode()"
         class="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
         title="Cambiar tema">
-      <svg data-icon-sun class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg data-icon-sun class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
       </svg>
       <svg data-icon-moon class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,26 +84,13 @@
   }
 
   function toggleDarkMode() {
-    var html = document.documentElement;
-    html.classList.toggle('dark');
-    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-    updateDarkModeIcon();
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
   }
-
-  function updateDarkModeIcon() {
-    var btn = document.getElementById('dark-mode-toggle');
-    if (!btn) return;
-    var isDark = document.documentElement.classList.contains('dark');
-    btn.querySelector('[data-icon-sun]').classList.toggle('hidden', !isDark);
-    btn.querySelector('[data-icon-moon]').classList.toggle('hidden', isDark);
-  }
-
-  updateDarkModeIcon();
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
     if (!localStorage.getItem('theme')) {
       document.documentElement.classList.toggle('dark', e.matches);
-      updateDarkModeIcon();
     }
   });
   </script>
