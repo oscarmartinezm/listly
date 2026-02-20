@@ -88,6 +88,7 @@ class ItemsListView extends Component {
   public function clearFilters(): void {
     $this->searchText = '';
     $this->activeTagIds = [];
+    $this->js('document.querySelector(\'input[wire\\\\:model\\\\.live\\\\.debounce\\\\.300ms="searchText"]\').value = ""');
   }
 
   public function refreshList(): void {

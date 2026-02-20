@@ -54,13 +54,11 @@
       @endif
 
       {{-- Clear button --}}
-      @if($searchText || count($activeTagIds))
       <div class="flex justify-end">
         <button wire:click="clearFilters" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
           Limpiar filtros
         </button>
       </div>
-      @endif
     </div>
     @endif
   </div>
