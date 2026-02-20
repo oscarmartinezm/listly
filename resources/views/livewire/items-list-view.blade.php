@@ -19,6 +19,14 @@
     </button>
   </div>
 
+  {{-- Uncategorized items (shown without collapsible if no categories) --}}
+  <livewire:uncategorized-section
+    :list="$list"
+    :showChecked="$showChecked"
+    :showUnchecked="$showUnchecked"
+    :showCollapsible="$hasCategories"
+    :key="'uncat-' . $list->id . '-' . $refreshKey" />
+
   {{-- Categories --}}
   @foreach($categories as $category)
     @if($category->items->count() || empty($activeTagIds))
@@ -29,13 +37,6 @@
       :key="'cat-' . $category->id . '-' . $refreshKey" />
     @endif
   @endforeach
-
-  @if($categories->isEmpty())
-    <div class="text-center py-12 text-gray-400 dark:text-gray-500">
-    <p class="text-lg">No hay categorias</p>
-    <p class="text-sm mt-1">Ve a <a href="{{ route('admin') }}" class="text-blue-500 underline">Ajustes</a> para crear una</p>
-    </div>
-  @endif
   @else
   <div class="text-center py-12 text-gray-400 dark:text-gray-500">
     <p class="text-lg">No tienes listas</p>

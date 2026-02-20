@@ -12,13 +12,6 @@
     <span class="text-xs text-gray-400 dark:text-gray-500">({{ $items->count() }})</span>
     </div>
     <div class="flex items-center gap-2">
-    <button wire:click.stop="reloadCategory"
-        class="text-gray-400 hover:text-blue-500 p-1.5 rounded transition"
-        title="Reordenar">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4.93 9a9 9 0 0115.14 0M19.07 15a9 9 0 01-15.14 0"/>
-      </svg>
-    </button>
     @if($items->where('is_checked', true)->count())
       <button wire:click.stop="uncheckAll" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar</button>
     @endif

@@ -78,11 +78,14 @@ class ItemsListView extends Component {
 
   public function render() {
     $categories = collect();
+    $hasCategories = false;
 
     if ($this->list) {
       $categories = $this->list->categories()->with(['items' => function ($query) {
         $query->with('tags')->orderBy('is_checked')->orderByRaw('LOWER(text)');
       }])->get();
+
+      $hasCategories = $categories->isNotEmpty();
 
       if (! empty($this->activeTagIds)) {
         $categories->each(function ($category) {
@@ -105,6 +108,7 @@ class ItemsListView extends Component {
 
     return view('livewire.items-list-view', [
       'categories' => $categories,
+      'hasCategories' => $hasCategories,
     ]);
   }
 }
