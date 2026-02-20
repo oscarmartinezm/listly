@@ -84,6 +84,8 @@
       :category="$category"
       :showChecked="$showChecked"
       :showUnchecked="$showUnchecked"
+      :searchText="$searchText"
+      :activeTagIds="$activeTagIds"
       :key="'cat-' . $category->id . '-' . $refreshKey" />
     @endif
   @endforeach

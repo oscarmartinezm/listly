@@ -13,6 +13,10 @@ class CategorySection extends Component {
   public bool $showChecked;
   #[Reactive]
   public bool $showUnchecked;
+  #[Reactive]
+  public string $searchText = '';
+  #[Reactive]
+  public array $activeTagIds = [];
   public bool $collapsed = false;
   public int $version = 0;
   public string $newItemText = '';
@@ -49,6 +53,21 @@ class CategorySection extends Component {
   public function render() {
     // Cargar items desde la relación (ya cargados por ItemsListView)
     $items = $this->category->items;
+
+    // Aplicar filtro por tags
+    if (! empty($this->activeTagIds)) {
+      $items = $items->filter(function ($item) {
+        return $item->tags->whereIn('id', $this->activeTagIds)->isNotEmpty();
+      });
+    }
+
+    // Aplicar filtro por texto del filtro global (mínimo 3 caracteres)
+    if (strlen($this->searchText) >= 3) {
+      $search = strtolower($this->searchText);
+      $items = $items->filter(function ($item) use ($search) {
+        return str_contains(strtolower($item->text), $search);
+      });
+    }
 
     if (! $this->showChecked) {
       $items = $items->where('is_checked', false)->values();
