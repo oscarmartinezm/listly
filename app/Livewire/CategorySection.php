@@ -17,13 +17,8 @@ class CategorySection extends Component {
   public string $searchText = '';
   #[Reactive]
   public array $activeTagIds = [];
-  public bool $collapsed = false;
   public int $version = 0;
   public string $newItemText = '';
-
-  public function toggleCollapse(): void {
-    $this->collapsed = ! $this->collapsed;
-  }
 
   public function confirmUncheckAll(): void {
     $this->dispatch('showConfirmDialog', [

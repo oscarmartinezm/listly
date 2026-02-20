@@ -3,17 +3,16 @@
   {{-- With collapsible --}}
   <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
     {{-- Header --}}
-    <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border-b dark:border-gray-700 flex items-center justify-between cursor-pointer"
-       onclick="let c=this.parentElement.querySelector('[data-content]'); c.hidden=!c.hidden; this.querySelector('[data-arrow]').classList.toggle('rotate-90')">
-      <div class="flex items-center gap-2">
-        <svg data-arrow class="w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform rotate-90"
+    <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border-b dark:border-gray-700 flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer flex-1" onclick="let c=this.closest('.bg-white').querySelector('[data-content]'); let b=this.parentElement.querySelector('[data-uncheck-btn]'); if(c.hidden){c.hidden=false;b.classList.remove('hidden');this.querySelector('svg').classList.add('rotate-90')}else{c.hidden=true;b.classList.add('hidden');this.querySelector('svg').classList.remove('rotate-90')}">
+        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform rotate-90"
            fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
         <span class="text-base font-semibold text-gray-600 dark:text-gray-300">Sin Categoría</span>
         <span class="text-xs text-gray-400 dark:text-gray-500">({{ $items->count() }})</span>
       </div>
-      <button wire:click.stop="confirmUncheckAll" class="text-sm text-blue-500 hover:text-blue-700">Desmarcar Todo</button>
+      <button wire:click="confirmUncheckAll" data-uncheck-btn class="text-sm text-blue-500 hover:text-blue-700">Desmarcar Todo</button>
     </div>
 
     {{-- Content --}}

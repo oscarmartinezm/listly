@@ -65,22 +65,22 @@ class ListManager extends Component {
     headerLink.textContent = '{$listName}';
   }
 
-  var menuButtons = document.querySelectorAll('[data-list-item]');
+  const menuButtons = document.querySelectorAll('[data-list-item]');
   menuButtons.forEach(function(btn) {
     btn.classList.remove('bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
     var svg = btn.querySelector('svg');
     if (svg) svg.remove();
   });
 
-  var activeBtn = document.querySelector('[data-list-id="{$listId}"]');
+  const activeBtn = document.querySelector('[data-list-id="{$listId}"]');
   if (activeBtn) {
     activeBtn.classList.add('bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'w-4 h-4 flex-shrink-0 ml-2');
     svg.setAttribute('fill', 'none');
     svg.setAttribute('stroke', 'currentColor');
     svg.setAttribute('viewBox', '0 0 24 24');
-    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('stroke-linecap', 'round');
     path.setAttribute('stroke-linejoin', 'round');
     path.setAttribute('stroke-width', '2');
