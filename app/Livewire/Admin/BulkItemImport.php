@@ -8,7 +8,7 @@ use Livewire\Component;
 class BulkItemImport extends Component {
   public int $listId;
   public string $itemsText     = '';
-  public ?int $categoryId      = null;
+  public string $categoryId    = '';
   public string $resultMessage = '';
   public int $addedCount       = 0;
   public int $skippedCount     = 0;
@@ -46,7 +46,7 @@ class BulkItemImport extends Component {
       $maxOrder++;
       $list->items()->create([
         'text'        => $line,
-        'category_id' => $this->categoryId ?: null,
+        'category_id' => $this->categoryId !== '' ? (int) $this->categoryId : null,
         'order'       => $maxOrder,
       ]);
       $existingItems[] = mb_strtolower($line);
@@ -64,6 +64,12 @@ class BulkItemImport extends Component {
     $list       = ItemsList::findOrFail($this->listId);
     $categories = $list->categories;
     $listName   = $list->name;
-    return view('livewire.admin.bulk-item-import', compact('categories', 'listName'));
+
+    $categoryOptions = collect([['value' => '', 'label' => 'Sin categoria']]);
+    foreach ($categories as $cat) {
+      $categoryOptions->push(['value' => $cat->id, 'label' => $cat->name]);
+    }
+
+    return view('livewire.admin.bulk-item-import', compact('categories', 'listName', 'categoryOptions'));
   }
 }

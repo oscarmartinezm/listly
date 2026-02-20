@@ -20,13 +20,11 @@
       {{-- Category --}}
       <div>
       <label class="text-sm text-gray-600 dark:text-gray-300 mb-1 block">Categoria</label>
-      <select wire:model="categoryId"
-          class="w-full text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
-        <option value="">Sin categoria</option>
-        @foreach($categories as $cat)
-        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-        @endforeach
-      </select>
+      <x-custom-select
+        wire-model="categoryId"
+        :options="collect([['value' => '', 'label' => 'Sin categoria']])->merge($categories->map(fn($cat) => ['value' => $cat->id, 'label' => $cat->name]))->toArray()"
+        placeholder="Sin categoria"
+        size="base" />
       </div>
 
       {{-- Link --}}

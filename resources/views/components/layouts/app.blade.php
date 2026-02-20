@@ -25,6 +25,13 @@
       display: none !important;
     }
 
+    /* Fix para selects en mobile - forzar apariencia nativa completa */
+    .mobile-select {
+      -webkit-appearance: menulist !important;
+      -moz-appearance: menulist !important;
+      appearance: menulist !important;
+    }
+
   </style>
   @include('partials.pwa-head')
   <meta name="csrf-token" content="{{ csrf_token() }}">
