@@ -14,6 +14,10 @@ class UncategorizedSection extends Component {
   public bool $showChecked;
   #[Reactive]
   public bool $showUnchecked;
+  #[Reactive]
+  public string $searchText = '';
+  #[Reactive]
+  public array $activeTagIds = [];
   public bool $showCollapsible = false;
   public int $version = 0;
   public string $newItemText = '';
@@ -49,6 +53,21 @@ class UncategorizedSection extends Component {
       ->orderBy('is_checked')
       ->orderByRaw('LOWER(text)')
       ->get();
+
+    // Aplicar filtro por tags
+    if (! empty($this->activeTagIds)) {
+      $items = $items->filter(function ($item) {
+        return $item->tags->whereIn('id', $this->activeTagIds)->isNotEmpty();
+      });
+    }
+
+    // Aplicar filtro por texto (mínimo 3 caracteres)
+    if (strlen($this->searchText) >= 3) {
+      $search = strtolower($this->searchText);
+      $items = $items->filter(function ($item) use ($search) {
+        return str_contains(strtolower($item->text), $search);
+      });
+    }
 
     if (! $this->showChecked) {
       $items = $items->where('is_checked', false)->values();

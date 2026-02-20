@@ -8,6 +8,7 @@ use Livewire\Component;
 class ItemsListView extends Component {
   public ?ItemsList $list = null;
   public array $activeTagIds = [];
+  public string $searchText = '';
   public bool $showChecked   = true;
   public bool $showUnchecked = true;
   public int $refreshKey = 0;
@@ -28,6 +29,7 @@ class ItemsListView extends Component {
   public function getListeners(): array {
     $listeners = [
       'tag-filter-changed' => 'onTagFilterChanged',
+      'filters-changed'    => 'onFiltersChanged',
       'item-created'       => 'refreshList',
       'item-updated'       => 'refreshList',
       'item-deleted'       => 'refreshList',
@@ -65,6 +67,11 @@ class ItemsListView extends Component {
     $this->activeTagIds = $activeTagIds;
   }
 
+  public function onFiltersChanged(array $filters): void {
+    $this->searchText = $filters['searchText'] ?? '';
+    $this->activeTagIds = $filters['activeTagIds'] ?? [];
+  }
+
   public function refreshList(): void {
     if ($this->list) {
       $this->list = $this->list->fresh();
@@ -91,13 +98,27 @@ class ItemsListView extends Component {
       // Verificar si hay items sin categoría
       $hasUncategorizedItems = $this->list->items()->whereNull('category_id')->exists();
 
-      if (! empty($this->activeTagIds)) {
-        $categories->each(function ($category) {
-          $category->setRelation('items', $category->items->filter(function ($item) {
+      // Aplicar filtros de búsqueda y tags
+      $categories->each(function ($category) {
+        $filteredItems = $category->items;
+
+        // Filtro por tags
+        if (! empty($this->activeTagIds)) {
+          $filteredItems = $filteredItems->filter(function ($item) {
             return $item->tags->whereIn('id', $this->activeTagIds)->isNotEmpty();
-          }));
-        });
-      }
+          });
+        }
+
+        // Filtro por texto (mínimo 3 caracteres)
+        if (strlen($this->searchText) >= 3) {
+          $search = strtolower($this->searchText);
+          $filteredItems = $filteredItems->filter(function ($item) use ($search) {
+            return str_contains(strtolower($item->text), $search);
+          });
+        }
+
+        $category->setRelation('items', $filteredItems);
+      });
 
       if (! $this->showChecked || ! $this->showUnchecked) {
         $categories->each(function ($category) {

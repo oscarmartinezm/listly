@@ -4,10 +4,8 @@
     <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">{{ $list->name }}</h2>
   </div>
 
-  {{-- Tag Filter --}}
-  @if($list->tags->count())
-    <livewire:tag-filter :list="$list" :activeTagIds="$activeTagIds" :key="'tag-filter-' . $list->id" />
-  @endif
+  {{-- Filter --}}
+  <livewire:list-filter :list="$list" :key="'list-filter-' . $list->id" />
 
   {{-- Filter buttons --}}
   <div class="mb-3 flex items-center gap-2">
@@ -25,6 +23,8 @@
     :list="$list"
     :showChecked="$showChecked"
     :showUnchecked="$showUnchecked"
+    :searchText="$searchText"
+    :activeTagIds="$activeTagIds"
     :showCollapsible="$hasCategories"
     :key="'uncat-' . $list->id . '-' . $refreshKey" />
   @endif
