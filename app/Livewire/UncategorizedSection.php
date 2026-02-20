@@ -30,6 +30,8 @@ class UncategorizedSection extends Component {
       'cancelText' => 'Cancelar',
       'confirmEvent' => 'uncheckAll-uncategorized-' . $this->list->id,
     ]);
+
+    $this->skipRender();
   }
 
   public function getListeners(): array {
@@ -40,6 +42,12 @@ class UncategorizedSection extends Component {
 
   public function uncheckAll(): void {
     $this->list->items()->whereNull('category_id')->where('is_checked', true)->update(['is_checked' => false]);
+
+    // Recargar items con el orden correcto
+    $this->list->load(['items' => function ($query) {
+      $query->with('tags')->orderBy('is_checked')->orderByRaw('LOWER(text)');
+    }]);
+
     $this->version++;
   }
 
