@@ -1,8 +1,8 @@
-<div class="item-row px-4 py-2.5 flex items-center gap-3 group {{ $item->is_checked ? 'bg-gray-50' : '' }}">
+<div class="item-row px-4 py-2.5 flex items-center gap-3 group {{ $item->is_checked ? 'bg-gray-50 dark:bg-gray-700/50' : '' }}">
   {{-- Checkbox --}}
   <button wire:click="toggleCheck" onclick="toggleItemCheck(this)" class="flex-shrink-0">
     <div data-box class="w-5 h-5 rounded border-2 flex items-center justify-center transition
-      {{ $item->is_checked ? 'bg-green-500 border-green-500' : 'border-gray-300 hover:border-blue-400' }}">
+      {{ $item->is_checked ? 'bg-green-500 border-green-500' : 'border-gray-300 dark:border-gray-600 hover:border-blue-400' }}">
       <svg class="w-3 h-3 text-white {{ $item->is_checked ? '' : 'hidden' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
       </svg>
@@ -14,7 +14,7 @@
   @if($editing)
     <form wire:submit="saveEdit" class="flex gap-2">
     <input type="text" wire:model="editText"
-         class="flex-1 text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+         class="flex-1 text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
          autofocus
          wire:keydown.escape="cancelEdit">
     <button type="submit" class="text-xs text-blue-500">OK</button>
@@ -22,7 +22,7 @@
     </form>
   @else
     <div class="flex items-center gap-2">
-    <span data-text class="text-sm {{ $item->is_checked ? 'line-through text-gray-400' : 'text-gray-800' }} cursor-pointer" wire:click="startEdit">
+    <span data-text class="text-sm {{ $item->is_checked ? 'line-through text-gray-400' : 'text-gray-800 dark:text-gray-100' }} cursor-pointer" wire:click="startEdit">
       {{ $item->text }}
     </span>
     {{-- Tags --}}
