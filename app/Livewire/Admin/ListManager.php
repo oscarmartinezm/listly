@@ -76,6 +76,26 @@ class ListManager extends Component {
     $this->editingListId = null;
   }
 
+  public function confirmDeleteList(int $listId): void {
+    $this->dispatch('showConfirmDialog', [
+      'title' => '¿Eliminar lista?',
+      'message' => '¿Estás seguro de que quieres eliminar esta lista y todos sus items?',
+      'confirmText' => 'Sí, eliminar',
+      'cancelText' => 'Cancelar',
+      'confirmEvent' => 'delete-list-' . $listId,
+      'confirmParams' => [$listId],
+    ]);
+  }
+
+  public function getListeners(): array {
+    $listeners = [];
+    $ownedLists = Auth::user()->ownedLists;
+    foreach ($ownedLists as $list) {
+      $listeners['delete-list-' . $list->id] = 'deleteList';
+    }
+    return $listeners;
+  }
+
   public function deleteList(int $listId): void {
     $list = ItemsList::findOrFail($listId);
     if (! $list->userIsOwner(Auth::user())) {

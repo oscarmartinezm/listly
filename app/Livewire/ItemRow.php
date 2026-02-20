@@ -35,6 +35,22 @@ class ItemRow extends Component {
     $this->editing = false;
   }
 
+  public function confirmDelete(): void {
+    $this->dispatch('showConfirmDialog', [
+      'title' => '¿Eliminar item?',
+      'message' => '¿Estás seguro de que quieres eliminar este item?',
+      'confirmText' => 'Sí, eliminar',
+      'cancelText' => 'Cancelar',
+      'confirmEvent' => 'delete-item-' . $this->item->id,
+    ]);
+  }
+
+  public function getListeners(): array {
+    return [
+      'delete-item-' . $this->item->id => 'delete',
+    ];
+  }
+
   public function delete(): void {
     $listId = $this->item->items_list_id;
     $itemId = $this->item->id;

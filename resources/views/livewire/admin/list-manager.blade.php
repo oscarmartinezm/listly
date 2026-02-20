@@ -43,7 +43,7 @@
         <button wire:click="setPrimary({{ $list->id }})" class="text-xs text-blue-500 hover:underline">Activar</button>
         @endif
         <button wire:click="startEdit({{ $list->id }})" class="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">Editar</button>
-        <button wire:click="deleteList({{ $list->id }})" wire:confirm="Eliminar esta lista y todos sus items?"
+        <button wire:click="confirmDeleteList({{ $list->id }})"
             class="text-sm text-red-400 hover:text-red-600">Eliminar</button>
       </div>
       @endif

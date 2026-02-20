@@ -51,6 +51,26 @@ class CategoryManager extends Component {
     $this->editingId = null;
   }
 
+  public function confirmDelete(int $id): void {
+    $this->dispatch('showConfirmDialog', [
+      'title' => '¿Eliminar categoría?',
+      'message' => '¿Estás seguro de que quieres eliminar esta categoría? Los items quedarán sin categoría.',
+      'confirmText' => 'Sí, eliminar',
+      'cancelText' => 'Cancelar',
+      'confirmEvent' => 'delete-category-' . $id,
+      'confirmParams' => [$id],
+    ]);
+  }
+
+  public function getListeners(): array {
+    $listeners = [];
+    $categories = Category::where('items_list_id', $this->listId)->get();
+    foreach ($categories as $category) {
+      $listeners['delete-category-' . $category->id] = 'delete';
+    }
+    return $listeners;
+  }
+
   public function delete(int $id): void {
     Category::where('id', $id)
       ->where('items_list_id', $this->listId)

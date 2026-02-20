@@ -16,7 +16,7 @@
           x-text="copied ? 'Copiado!' : 'Copiar'">
         Copiar
       </button>
-      <button wire:click="regenerateToken" wire:confirm="Regenerar el link? El link anterior dejara de funcionar."
+      <button wire:click="confirmRegenerateToken"
           class="flex-1 text-xs px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition">
         Regenerar
       </button>
@@ -34,7 +34,7 @@
       @endif
       <span class="text-sm text-gray-800 dark:text-gray-100">{{ $user->name }}</span>
       </div>
-      <button wire:click="removeUser({{ $user->id }})" wire:confirm="Quitar acceso a {{ $user->name }}?"
+      <button wire:click="confirmRemoveUser({{ $user->id }}, '{{ $user->name }}')"
           class="text-xs text-red-400 hover:text-red-600">Quitar</button>
     </div>
     @empty

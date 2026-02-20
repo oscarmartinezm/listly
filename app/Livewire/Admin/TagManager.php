@@ -57,6 +57,26 @@ class TagManager extends Component {
     $this->editingId = null;
   }
 
+  public function confirmDelete(int $id): void {
+    $this->dispatch('showConfirmDialog', [
+      'title' => '¿Eliminar tag?',
+      'message' => '¿Estás seguro de que quieres eliminar este tag?',
+      'confirmText' => 'Sí, eliminar',
+      'cancelText' => 'Cancelar',
+      'confirmEvent' => 'delete-tag-' . $id,
+      'confirmParams' => [$id],
+    ]);
+  }
+
+  public function getListeners(): array {
+    $listeners = [];
+    $tags = Tag::where('items_list_id', $this->listId)->get();
+    foreach ($tags as $tag) {
+      $listeners['delete-tag-' . $tag->id] = 'delete';
+    }
+    return $listeners;
+  }
+
   public function delete(int $id): void {
     Tag::where('id', $id)
       ->where('items_list_id', $this->listId)
