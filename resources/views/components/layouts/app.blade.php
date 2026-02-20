@@ -42,7 +42,7 @@
 <body class="min-h-dvh bg-gray-100 dark:bg-gray-900">
   {{-- Navigation --}}
   <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
-    <div class="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="max-w-2xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
       <a href="{{ route('home') }}" class="flex items-center gap-2">
         <img src="/logo.png" alt="Listly" class="w-7 h-7 rounded-lg">
         <span class="font-bold text-lg text-gray-800 dark:text-gray-100">Listly</span>

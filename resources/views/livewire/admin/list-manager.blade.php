@@ -1,6 +1,4 @@
 <div>
-  <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Administrar</h2>
-
   {{-- Create List --}}
   <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 mb-4">
   <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-3">Crear lista</h3>
