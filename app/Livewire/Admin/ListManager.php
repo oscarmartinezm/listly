@@ -44,6 +44,7 @@ class ListManager extends Component {
 
     Auth::user()->update(['primary_list_id' => $listId]);
     $this->activeListId = $listId;
+    $this->dispatch('list-changed');
   }
 
   public function startEdit(int $listId): void {

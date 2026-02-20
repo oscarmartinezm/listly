@@ -32,6 +32,7 @@ class ItemsListView extends Component {
       'item-updated'       => 'refreshList',
       'item-deleted'       => 'refreshList',
       'list-updated'       => 'refreshList',
+      'list-changed'       => 'reloadPage',
     ];
 
     if ($this->list) {
@@ -69,6 +70,10 @@ class ItemsListView extends Component {
       $this->list = $this->list->fresh();
       $this->refreshKey++;
     }
+  }
+
+  public function reloadPage(): void {
+    $this->redirect(route('home'), navigate: true);
   }
 
   public function render() {
