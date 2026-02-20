@@ -33,13 +33,13 @@
   @if($categories->isEmpty())
     <div class="text-center py-12 text-gray-400 dark:text-gray-500">
     <p class="text-lg">No hay categorias</p>
-    <p class="text-sm mt-1">Ve a <a href="{{ route('admin') }}" class="text-blue-500 underline">Admin</a> para crear una</p>
+    <p class="text-sm mt-1">Ve a <a href="{{ route('admin') }}" class="text-blue-500 underline">Ajustes</a> para crear una</p>
     </div>
   @endif
   @else
   <div class="text-center py-12 text-gray-400 dark:text-gray-500">
     <p class="text-lg">No tienes listas</p>
-    <p class="text-sm mt-1">Ve a <a href="{{ route('admin') }}" class="text-blue-500 underline">Admin</a> para crear una</p>
+    <p class="text-sm mt-1">Ve a <a href="{{ route('admin') }}" class="text-blue-500 underline">Ajustes</a> para crear una</p>
   </div>
   @endif
 </div>
