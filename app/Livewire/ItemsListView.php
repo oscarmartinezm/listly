@@ -11,6 +11,7 @@ class ItemsListView extends Component {
   public string $searchText = '';
   public bool $showChecked   = true;
   public bool $showUnchecked = true;
+  public bool $showFilters = false;
   public int $refreshKey = 0;
 
   public function mount(): void {
@@ -70,6 +71,23 @@ class ItemsListView extends Component {
   public function onFiltersChanged(array $filters): void {
     $this->searchText = $filters['searchText'] ?? '';
     $this->activeTagIds = $filters['activeTagIds'] ?? [];
+  }
+
+  public function toggleFilters(): void {
+    $this->showFilters = ! $this->showFilters;
+  }
+
+  public function toggleFilterTag(int $tagId): void {
+    if (in_array($tagId, $this->activeTagIds)) {
+      $this->activeTagIds = array_values(array_diff($this->activeTagIds, [$tagId]));
+    } else {
+      $this->activeTagIds[] = $tagId;
+    }
+  }
+
+  public function clearFilters(): void {
+    $this->searchText = '';
+    $this->activeTagIds = [];
   }
 
   public function refreshList(): void {
