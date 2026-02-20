@@ -13,6 +13,17 @@ class ListManager extends Component {
 
   public function mount(): void {
     $this->activeListId = Auth::user()->primary_list_id;
+
+    // Si viene el parámetro setList, activar esa lista y redirigir a home
+    if (request()->has('setList')) {
+      $listId = (int) request()->get('setList');
+      $list = ItemsList::find($listId);
+
+      if ($list && $list->userHasAccess(Auth::user())) {
+        Auth::user()->update(['primary_list_id' => $listId]);
+        $this->redirect(route('home'), navigate: true);
+      }
+    }
   }
 
   public function createList(): void {
@@ -44,7 +55,41 @@ class ListManager extends Component {
 
     Auth::user()->update(['primary_list_id' => $listId]);
     $this->activeListId = $listId;
-    $this->dispatch('list-changed');
+
+    // Actualizar UI con JavaScript
+    $listName = addslashes($list->name);
+    $this->js(<<<JS
+(function() {
+  const headerLink = document.getElementById('active-list-name');
+  if (headerLink) {
+    headerLink.textContent = '{$listName}';
+  }
+
+  var menuButtons = document.querySelectorAll('[data-list-item]');
+  menuButtons.forEach(function(btn) {
+    btn.classList.remove('bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+    var svg = btn.querySelector('svg');
+    if (svg) svg.remove();
+  });
+
+  var activeBtn = document.querySelector('[data-list-id="{$listId}"]');
+  if (activeBtn) {
+    activeBtn.classList.add('bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'w-4 h-4 flex-shrink-0 ml-2');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('d', 'M5 13l4 4L19 7');
+    svg.appendChild(path);
+    activeBtn.appendChild(svg);
+  }
+})();
+JS);
   }
 
   public function startEdit(int $listId): void {
