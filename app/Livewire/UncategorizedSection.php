@@ -2,6 +2,7 @@
 namespace App\Livewire;
 
 use App\Events\ItemCreated;
+use App\Events\ListUpdated;
 use App\Models\Item;
 use App\Models\ItemsList;
 use Livewire\Attributes\Reactive;
@@ -49,6 +50,7 @@ class UncategorizedSection extends Component {
     }]);
 
     $this->version++;
+    ListUpdated::dispatch($this->list);
   }
 
   public function addItem(): void {

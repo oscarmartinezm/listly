@@ -41,6 +41,7 @@ class ItemsListView extends Component {
     if ($this->list) {
       $channel                             = "echo:listly.{$this->list->id}";
       $listeners["{$channel},ItemCreated"] = 'refreshList';
+      $listeners["{$channel},ItemUpdated"] = 'refreshList';
       $listeners["{$channel},ItemDeleted"] = 'refreshList';
       $listeners["{$channel},ListUpdated"] = 'refreshList';
     }
